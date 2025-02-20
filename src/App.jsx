@@ -3,6 +3,9 @@ import './App.css'
 import Header from './components/Header'
 import Text from './components/Text'
 
+
+
+
 function App() {
   return (
     <>
@@ -35,8 +38,9 @@ function App() {
           </button>
         </div>
       </div>
-    </>
-  )
+            
+    </div>
+    )
 }
 
 export default App

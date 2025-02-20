@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-body {
-  @apply bg-gray-300 text-white;
+body{
+  background-color: #F4F6FA;
 }
 
 header {
@@ -59,4 +59,32 @@ header {
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+
+.darkCircleTop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.darkCircleBottom {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.lightCircleTop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.lightCircleBottom {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
 }
