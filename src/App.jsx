@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <div><h1 className='text-red-500'>Hello world</h1></div>
+       <div className='mx-36 my-50'>
+        <p className="font-rubik text-[45px] md:text-[60px] font-light">Welcome to the</p>
+        <p className="font-rubik text-[45px] md:text-[60px] font-bold">Frontend Quiz!</p>
+        <p className="text-gray-500 italic my-10 font-rubik text-[20px] ">Pick a subject to get started.</p>
+      </div>
     </>
   )
 }
