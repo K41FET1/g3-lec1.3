@@ -3,6 +3,7 @@ import React from 'react';
 export default function Text() {
   return (
     <div className='mx-36 my-50'>
+
       <p id='welcoming' className={`font-rubik text-[45px] md:text-[60px] font-light`}>
         Welcome to the
       </p>
