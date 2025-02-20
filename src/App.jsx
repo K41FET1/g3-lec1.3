@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import './App.css'
 import Header from './components/Header'
+import Text from './components/Text'
 
-function App() {
+function App() { 
 
   return (
-    <>
+    <div>
     <Header/>
+    <Text/>
+
       <div className='absolute right-[140px] bottom-[280px]'>
         <div className='flex justify-center items-center w-[564px] flex-col gap-6  '>
           <button id='input' className='bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]
@@ -19,8 +22,9 @@ function App() {
 '><img src="/public/Assets/Accessibility-rec.svg" alt="Accessibility Icon" className="w-[56px] h-[56px] absolute left-[20px] top-[380px] rounded-1g" /><img src="/public/Assets/Accessibility.svg" alt="Accessibility Icon" className="w-[40px] h-[40px] absolute left-[28px] top-[388px]" />Accessibility</button>
         </div>
       </div>
-    </>
-  )
+            
+    </div>
+    )
 }
 
 export default App
