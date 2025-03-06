@@ -1,46 +1,17 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState , useEffect } from 'react';
+import { motion } from 'framer-motion';
 import "../index.css";
 
-export default function DarkLight() {
-  const [darkMode, setDarkMode] = useState(false);
+export default function DarkLight({ darkMode, toggleDarkMode }) {
   const [x, setX] = useState(0);
   const [topCircle, setTopCircle] = useState("../assets/lightCircleTop.svg");
   const [bottomCircle, setBottomCircle] = useState("../assets/lightCircleBottom.svg");
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    setX((prev) => (prev === 0 ? 23 : 0));
-
-    if (!darkMode) {
-      document.querySelectorAll('#welcoming').forEach((el) => {
-        el.style.color = "white";
-      });
-      document.body.style.backgroundColor = "#313E51";
-      document.body.style.color = "#F4F6FA;";
-      setTopCircle("../assets/darkCircleTop.png");
-      setBottomCircle("../assets/darkCircleBottom.png");
-    } else {
-      document.querySelectorAll('#welcoming').forEach((el) => {
-        el.style.color = "#313E51";
-      });
-      document.body.style.backgroundColor = "#F4F6FA";
-      document.body.style.color = "#313E51";
-      setTopCircle("../assets/lightCircleTop.svg");
-      setBottomCircle("../assets/lightCircleBottom.svg");
-    }
-
-    const buttons = document.querySelectorAll("#input");
-    buttons.forEach((el) => {
-      if (!darkMode) {
-        el.classList.add("bg-[#3B4D66]", "text-white");
-        el.classList.remove("bg-white", "text-[#313E51]");
-      } else {
-        el.classList.add("bg-white", "text-[#313E51]");
-        el.classList.remove("bg-[#3B4D66]", "text-white");
-      }
-    });
-  };
+  useEffect(() => {
+    setX(darkMode ? 23 : 0);
+    setTopCircle(darkMode ? "../assets/darkCircleTop.png" : "../assets/lightCircleTop.svg");
+    setBottomCircle(darkMode ? "../assets/darkCircleBottom.png" : "../assets/lightCircleBottom.svg");
+  }, [darkMode]);
 
   return (
     <>
