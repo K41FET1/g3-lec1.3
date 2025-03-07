@@ -1,104 +1,112 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header'
-import Text from './components/Text'
+import { useState } from 'react';
+import './App.css';
+import Header from './components/Header';
+import Text from './components/Text';
 
 function App() {
   const [activeButton, setActiveButton] = useState(null);
   const [showTest, setShowTest] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
-  const [hoveredButton, setHoveredButton] = useState(null); 
+  const [hoveredButton, setHoveredButton] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(0);
 
-  const correctAnswer = "A";
-  
+  const correctAnswer = 'A';
   const [error, setError] = useState(null);
 
-
   const getAnswerIcon = (buttonId) => {
-    if (!isSubmitted) return null; 
-  
+    if (!isSubmitted) return null;
+
     // Check if the answer was not selected and show the X mark on all buttons
     if (!selectedAnswer) {
-      return "/assets/xmark.svg"; 
+      return '/assets/xmark.svg';
     }
-  
+
     // Show checkmark on the correct answer
     if (buttonId === correctAnswer) {
-      return "/assets/checkmark.svg"; 
+      return '/assets/checkmark.svg';
     }
-  
+
     // Show X mark on the wrong answer
     if (selectedAnswer === buttonId && buttonId !== correctAnswer) {
-      return "/assets/xmark.svg";
+      return '/assets/xmark.svg';
     }
-  
-    return null; 
+
+    return null;
   };
-  
+
   const handleSubmit = () => {
     if (!selectedAnswer) {
-      setError("Please select an answer .");
+      setError('Please select an answer.');
     } else {
       setIsSubmitted(true);
-      setIsCorrect(selectedAnswer === correctAnswer); 
+      setIsCorrect(selectedAnswer === correctAnswer);
       setError(null);
       setQuestionNumber(prev => prev + 1);
     }
   };
-  
+
   const handleClick = (buttonId) => {
-    setSelectedAnswer(buttonId); 
-    setActiveButton(buttonId); 
-    setIsSubmitted(false); 
-    setError(null); 
+    setSelectedAnswer(buttonId);
+    setActiveButton(buttonId);
+    setIsSubmitted(false);
+    setError(null);
   };
 
   // Handle mouse hover on a button
   const handleMouseEnter = (buttonId) => {
-    setHoveredButton(buttonId); 
+    setHoveredButton(buttonId);
   };
 
   const handleMouseLeave = () => {
-    setHoveredButton(null); 
+    setHoveredButton(null);
   };
   
   
+
   if (showTest) {
     return (
      <div> 
       <Text showTest={showTest}  questionNumber={questionNumber}/>
       <div className="absolute right-[140px] bottom-[280px]">
+        <Header showTest={showTest} />
         <div className="flex justify-center items-center w-[564px] flex-col gap-6">
-          
+          {/* Button A */}
           <button
-            id="input"
-            onClick={() => handleClick("A")}
-            onMouseEnter={() => handleMouseEnter("A")} 
+            id="accessibility-input"
+            onClick={() => handleClick('A')}
+            onMouseEnter={() => handleMouseEnter('A')}
             onMouseLeave={handleMouseLeave}
-            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] 
-              ${isSubmitted && selectedAnswer === "A" ? (isCorrect ? "border-[3px] border-green-500" : "border-[3px] border-red-500") : 
-                activeButton === "A" ? "border-[3px] border-purple-500" : ""}`}
+            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${
+              isSubmitted && selectedAnswer === 'A'
+                ? isCorrect
+                  ? 'border-[3px] border-green-500'
+                  : 'border-[3px] border-red-500'
+                : activeButton === 'A'
+                ? 'border-[3px] border-purple-500'
+                : ''
+            }`}
           >
-            {isSubmitted && getAnswerIcon("A") && (
-    <img
-      src={getAnswerIcon("A")}
-      alt={isCorrect ? "Correct" : "Incorrect"}
-      className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
-    />)}
+            {isSubmitted && getAnswerIcon('A') && (
+              <img
+                src={getAnswerIcon('A')}
+                alt={isCorrect ? 'Correct' : 'Incorrect'}
+                className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
+              />
+            )}
             <img
+              id="iconBG"
               src={
-                isSubmitted && selectedAnswer === "A"
+                isSubmitted && selectedAnswer === 'A'
                   ? isCorrect
-                    ? "/assets/correct-rec.svg" 
-                    : "/assets/incorrect-rec.svg" 
-                  : activeButton === "A"
-                  ? "/assets/Clicked-rec.svg" 
-                  : hoveredButton === "A"
-                  ? "/assets/Hover-rec.svg" 
-                  : "/assets/Quiz-rec.svg" 
+                    ? '/assets/correct-rec.svg'
+                    : '/assets/incorrect-rec.svg'
+                  : activeButton === 'A'
+                  ? '/assets/Clicked-rec.svg'
+                  : hoveredButton === 'A'
+                  ? '/assets/Hover-rec.svg'
+                  : '/assets/Quiz-rec.svg'
               }
               alt="Quiz Icon"
               className="w-[56px] h-[56px] absolute left-[20px] top-[20px] rounded-1g transition-opacity duration-300"
@@ -113,30 +121,38 @@ function App() {
 
           {/* Button B */}
           <button
-            id="input"
-            onClick={() => handleClick("B")}
-            onMouseEnter={() => handleMouseEnter("B")} 
-            onMouseLeave={handleMouseLeave} 
-            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${activeButton === "B" ? "border-[3px] border-purple-500" : ""} 
-            ${isSubmitted && selectedAnswer === "B" && isCorrect ? "border-green-500" : isSubmitted && selectedAnswer === "B" && !isCorrect ? "border-red-500" : ""}`}
+            id="accessibility-input"
+            onClick={() => handleClick('B')}
+            onMouseEnter={() => handleMouseEnter('B')}
+            onMouseLeave={handleMouseLeave}
+            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${
+              activeButton === 'B' ? 'border-[3px] border-purple-500' : ''
+            } ${
+              isSubmitted && selectedAnswer === 'B' && isCorrect
+                ? 'border-green-500'
+                : isSubmitted && selectedAnswer === 'B' && !isCorrect
+                ? 'border-red-500'
+                : ''
+            }`}
           >
-            {isSubmitted && getAnswerIcon("B") && (
-    <img
-      src={getAnswerIcon("B")}
-      alt={isCorrect ? "Correct" : "Incorrect"}
-      className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
-    />)}
+            {isSubmitted && getAnswerIcon('B') && (
+              <img
+                src={getAnswerIcon('B')}
+                alt={isCorrect ? 'Correct' : 'Incorrect'}
+                className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
+              />
+            )}
             <img
               src={
-                isSubmitted && selectedAnswer === "B"
+                isSubmitted && selectedAnswer === 'B'
                   ? isCorrect
-                    ? "/assets/correct-rec.svg" 
-                    : "/assets/incorrect-rec.svg" 
-                  : activeButton === "B"
-                  ? "/assets/Clicked-rec.svg" 
-                  : hoveredButton === "B"
-                  ? "/assets/Hover-rec.svg" 
-                  : "/assets/Quiz-rec.svg" 
+                    ? '/assets/correct-rec.svg'
+                    : '/assets/incorrect-rec.svg'
+                  : activeButton === 'B'
+                  ? '/assets/Clicked-rec.svg'
+                  : hoveredButton === 'B'
+                  ? '/assets/Hover-rec.svg'
+                  : '/assets/Quiz-rec.svg'
               }
               alt="Quiz Icon"
               className="w-[56px] h-[56px] absolute left-[20px] top-[20px] rounded-1g"
@@ -151,30 +167,38 @@ function App() {
 
           {/* Button C */}
           <button
-            id="input"
-            onClick={() => handleClick("C")}
-            onMouseEnter={() => handleMouseEnter("C")} 
-            onMouseLeave={handleMouseLeave} 
-            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${activeButton === "C" ? "border-[3px] border-purple-500" : ""} 
-            ${isSubmitted && selectedAnswer === "C" && isCorrect ? "border-green-500" : isSubmitted && selectedAnswer === "C" && !isCorrect ? "border-red-500" : ""}`}
+            id="accessibility-input"
+            onClick={() => handleClick('C')}
+            onMouseEnter={() => handleMouseEnter('C')}
+            onMouseLeave={handleMouseLeave}
+            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${
+              activeButton === 'C' ? 'border-[3px] border-purple-500' : ''
+            } ${
+              isSubmitted && selectedAnswer === 'C' && isCorrect
+                ? 'border-green-500'
+                : isSubmitted && selectedAnswer === 'C' && !isCorrect
+                ? 'border-red-500'
+                : ''
+            }`}
           >
-            {isSubmitted && getAnswerIcon("C") && (
-    <img
-      src={getAnswerIcon("C")}
-      alt={isCorrect ? "Correct" : "Incorrect"}
-      className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
-    />)}
+            {isSubmitted && getAnswerIcon('C') && (
+              <img
+                src={getAnswerIcon('C')}
+                alt={isCorrect ? 'Correct' : 'Incorrect'}
+                className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
+              />
+            )}
             <img
               src={
-                isSubmitted && selectedAnswer === "C"
+                isSubmitted && selectedAnswer === 'C'
                   ? isCorrect
-                    ? "/assets/correct-rec.svg"
-                    : "/assets/incorrect-rec.svg" 
-                  : activeButton === "C"
-                  ? "/assets/Clicked-rec.svg"
-                  : hoveredButton === "C"
-                  ? "/assets/Hover-rec.svg" 
-                  : "/assets/Quiz-rec.svg" 
+                    ? '/assets/correct-rec.svg'
+                    : '/assets/incorrect-rec.svg'
+                  : activeButton === 'C'
+                  ? '/assets/Clicked-rec.svg'
+                  : hoveredButton === 'C'
+                  ? '/assets/Hover-rec.svg'
+                  : '/assets/Quiz-rec.svg'
               }
               alt="Quiz Icon"
               className="w-[56px] h-[56px] absolute left-[20px] top-[20px] rounded-1g"
@@ -189,30 +213,38 @@ function App() {
 
           {/* Button D */}
           <button
-            id="input"
-            onClick={() => handleClick("D")}
-            onMouseEnter={() => handleMouseEnter("D")} 
-            onMouseLeave={handleMouseLeave} 
-            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${activeButton === "D" ? "border-[3px] border-purple-500" : ""} 
-            ${isSubmitted && selectedAnswer === "D" && isCorrect ? "border-green-500" : isSubmitted && selectedAnswer === "D" && !isCorrect ? "border-red-500" : ""}`}
+            id="accessibility-input"
+            onClick={() => handleClick('D')}
+            onMouseEnter={() => handleMouseEnter('D')}
+            onMouseLeave={handleMouseLeave}
+            className={`relative cursor-pointer group bg-white w-[564px] h-[92px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px] ${
+              activeButton === 'D' ? 'border-[3px] border-purple-500' : ''
+            } ${
+              isSubmitted && selectedAnswer === 'D' && isCorrect
+                ? 'border-green-500'
+                : isSubmitted && selectedAnswer === 'D' && !isCorrect
+                ? 'border-red-500'
+                : ''
+            }`}
           >
-            {isSubmitted && getAnswerIcon("D") && (
-    <img
-      src={getAnswerIcon("D")}
-      alt={isCorrect ? "Correct" : "Incorrect"}
-      className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
-    />)}
+            {isSubmitted && getAnswerIcon('D') && (
+              <img
+                src={getAnswerIcon('D')}
+                alt={isCorrect ? 'Correct' : 'Incorrect'}
+                className="w-8 h-8 absolute right-[30px] top-1/2 transform -translate-y-1/2"
+              />
+            )}
             <img
               src={
-                isSubmitted && selectedAnswer === "D"
+                isSubmitted && selectedAnswer === 'D'
                   ? isCorrect
-                    ? "/assets/correct-rec.svg" 
-                    : "/assets/incorrect-rec.svg" 
-                  : activeButton === "D"
-                  ? "/assets/Clicked-rec.svg" 
-                  : hoveredButton === "D"
-                  ? "/assets/Hover-rec.svg"
-                  : "/assets/Quiz-rec.svg" 
+                    ? '/assets/correct-rec.svg'
+                    : '/assets/incorrect-rec.svg'
+                  : activeButton === 'D'
+                  ? '/assets/Clicked-rec.svg'
+                  : hoveredButton === 'D'
+                  ? '/assets/Hover-rec.svg'
+                  : '/assets/Quiz-rec.svg'
               }
               alt="Quiz Icon"
               className="w-[56px] h-[56px] absolute left-[20px] top-[20px] rounded-1g"
@@ -227,21 +259,12 @@ function App() {
 
           {/* Submit Button */}
           <button
-          onClick={handleSubmit}
-           className='
-          bg-[#A729F5]
-          w-full
-          h-[92px]
-          hover:opacity-[50%]
-          cursor-pointer
-          rounded-3xl
-          font-medium 
-          text-[#FFFFFF] 
-          text-[28px]'>
+            onClick={handleSubmit}
+            className="bg-[#A729F5] w-full h-[92px] hover:opacity-[50%] cursor-pointer rounded-3xl font-medium text-[#FFFFFF] text-[28px]"
+          >
             Submit Answer
           </button>
-          
-        </div> 
+        </div>
         {error && (
           <p className="text-red-500 mt-2 text-normal text-2xl text-center flex items-center justify-center">
     <img
@@ -252,25 +275,24 @@ function App() {
     {error}
   </p>
 )}
+            <img src="/assets/xmark.svg" alt="Error" className="w-6 h-6 mr-2" />
+            {error}
+          </p>
+        )}
       </div>
 </div> 
     );
   }
 
- 
-
-
-
-
   return (
     <>
-      <Header />
+      <Header showTest={showTest} />
       <Text />
-      <div className='absolute right-[140px] bottom-[280px]'>
-        <div className='flex justify-center items-center w-[564px] flex-col gap-6'>
+      <div className="flex absolute right-[140px] bottom-[280px]">
+        <div className="flex justify-center items-center w-[564px] flex-col gap-6">
           <button
-            id='input'
-            className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]'
+            id="input"
+            className="cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]"
           >
             <img
               src="/assets/HTML-rec.svg"
@@ -286,8 +308,8 @@ function App() {
           </button>
 
           <button
-            id='input'
-            className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]'
+            id="input"
+            className="cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]"
           >
             <img
               src="/assets/CSS-rec.svg"
@@ -301,10 +323,10 @@ function App() {
             />
             CSS
           </button>
-          
+
           <button
-            id='input'
-            className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]'
+            id="input"
+            className="cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]"
           >
             <img
               src="/assets/Js-rec.svg"
@@ -320,8 +342,8 @@ function App() {
           </button>
 
           <button
-            id='input'
-            className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]'
+            id="input"
+            className="cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left pl-[108px]"
             onClick={() => setShowTest(true)}
           >
             <img
