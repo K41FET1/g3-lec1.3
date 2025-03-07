@@ -10,6 +10,7 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(null);
   const [hoveredButton, setHoveredButton] = useState(null); 
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [questionNumber, setQuestionNumber] = useState(0);
 
   const correctAnswer = "A";
   
@@ -44,6 +45,7 @@ function App() {
       setIsSubmitted(true);
       setIsCorrect(selectedAnswer === correctAnswer); 
       setError(null);
+      setQuestionNumber(prev => prev + 1);
     }
   };
   
@@ -63,9 +65,11 @@ function App() {
     setHoveredButton(null); 
   };
   
-
+  
   if (showTest) {
     return (
+     <div> 
+      <Text showTest={showTest}  questionNumber={questionNumber}/>
       <div className="absolute right-[140px] bottom-[280px]">
         <div className="flex justify-center items-center w-[564px] flex-col gap-6">
           
@@ -239,16 +243,17 @@ function App() {
           
         </div> 
         {error && (
-  <p className="text-red-500 mt-2 text-normal text-2xl text-center flex items-center justify-center">
+          <p className="text-red-500 mt-2 text-normal text-2xl text-center flex items-center justify-center">
     <img
       src="/assets/xmark.svg"
       alt="Error"
       className="w-6 h-6 mr-2" 
-    />
+      />
     {error}
   </p>
 )}
       </div>
+</div> 
     );
   }
 
