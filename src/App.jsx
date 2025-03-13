@@ -30,9 +30,10 @@ const App = () => {
   };
   
   return (
-    <div className='text-3xl flex flex-wrap'>
+    <div className='text-3xl flex'>
       {!activeQuiz && (
       <>
+       <Header activeQuiz={activeQuiz} />
        <Text/>
        <div className="flex flex-col relative  ml-auto mt-[300px] mr-[200px] justify-end w-[564px] gap-6 max-[1530px]:mt-[50px] ">
           {quiz.map((item) => (
@@ -42,6 +43,7 @@ const App = () => {
            setQuizCompleted(false); 
            setQuestionIndex(0);
          }}
+         id='input'
          className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4'
          key={item.title}
        >
@@ -53,9 +55,9 @@ const App = () => {
       )}
 
       {activeQuiz && (
-       <div className='text-3xl flex flex-wrap  absolute'>
+       <div className='text-3xl flex flex-wrap absolute'>
+       <Header/>
        <Text activeQuiz={activeQuiz} questions={questions} questionIndex={questionIndex} quizCompleted={quizCompleted} />
-       <div></div>
        <div className='flex flex-col ml-[500px] relative mt-[300px] justify-end w-[564px] gap-6 max-[2000px]:mt-[50px] max-[1150px]:ml-[50px]  '>
      
          
@@ -67,6 +69,7 @@ const App = () => {
 
               return (
                 <button
+                  id='input'
                   key={opt}
                   onClick={() => {
                     setCurrentAnswer(opt); // Set the selected answer
