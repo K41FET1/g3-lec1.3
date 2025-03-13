@@ -11,50 +11,54 @@ const App = () => {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null); // 'correct', 'wrong', or null
+  const [quizCompleted, setQuizCompleted] = useState(false)
   const questions = activeQuiz && quiz.find((item) => item.title === activeQuiz)?.questions;
-
   const handleSubmit = () => {
-    if (!currentAnswer) return; // Prevent submitting without selection
-
-    if (currentAnswer === questions[questionIndex].answer) {
-      setAnswerStatus('correct');
-      // Move to the next question after 5 seconds
-      setTimeout(() => {
-        if (questionIndex + 1 < questions.length) {
-          setQuestionIndex(prevIndex => prevIndex + 1); // Move to the next question
-        } else {
-          alert('Quiz Completed!');
-          setActiveQuiz(null);
-          setQuestionIndex(0);
-        }
-        setAnswerStatus(null); // Reset answer status for the next question
-        setCurrentAnswer(null); // Reset selected answer for next question
-      }, 5000); // Delay before next question
-    } else {
-      setAnswerStatus('wrong');
-    }
+    if (!currentAnswer) return;
+    const isCorrect = currentAnswer === questions[questionIndex].answer;
+    setAnswerStatus(isCorrect ? 'correct' : 'wrong');
+  
+    setTimeout(() => {
+      if (questionIndex + 1 < questions.length) {
+        setQuestionIndex(prevIndex => prevIndex + 1);
+      } else {
+        setQuizCompleted(true); 
+      }
+      setAnswerStatus(null);
+      setCurrentAnswer(null);
+    }, 2000);
   };
-
+  
   return (
-    <div className='text-3xl'>
+    <div className='text-3xl flex flex-wrap'>
       {!activeQuiz && (
-        <div className="flex flex-col justify-center items-center w-[564px] gap-6">
+      <>
+       <Text/>
+       <div className="flex flex-col relative  ml-auto mt-[300px] mr-[200px] justify-end w-[564px] gap-6 max-[1530px]:mt-[50px] ">
           {quiz.map((item) => (
-            <button
-              onClick={() => setActiveQuiz(item.title)}
-              className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4'
-              key={item.title}
-            >
+         <button
+         onClick={() => {
+           setActiveQuiz(item.title);
+           setQuizCompleted(false); 
+           setQuestionIndex(0);
+         }}
+         className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4'
+         key={item.title}
+       >
               {item.title}
             </button>
           ))}
         </div>
+      </>
       )}
 
       {activeQuiz && (
-        <div className='flex justify-evenly items-center'>
-          <div></div>
-          <div className='flex flex-col gap-6'>
+       <div className='text-3xl flex flex-wrap  absolute'>
+       <Text activeQuiz={activeQuiz} questions={questions} questionIndex={questionIndex} quizCompleted={quizCompleted} />
+       <div></div>
+       <div className='flex flex-col ml-[500px] relative mt-[300px] justify-end w-[564px] gap-6 max-[2000px]:mt-[50px] max-[1150px]:ml-[50px]  '>
+     
+         
             {questions[questionIndex].options.map((opt) => {
               const isCorrect = opt === questions[questionIndex].answer;
               const isSelected = opt === currentAnswer;
