@@ -12,12 +12,19 @@ const App = () => {
   const [currentAnswer, setCurrentAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null); // 'correct', 'wrong', or null
   const [quizCompleted, setQuizCompleted] = useState(false)
-  const questions = activeQuiz && quiz.find((item) => item.title === activeQuiz)?.questions;
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  
+  const activeQuizData = quiz.find((item) => item.title === activeQuiz);
+
+  const questions = activeQuizData?.questions
   const handleSubmit = () => {
     if (!currentAnswer) return;
     const isCorrect = currentAnswer === questions[questionIndex].answer;
     setAnswerStatus(isCorrect ? 'correct' : 'wrong');
-  
+     
+    if (isCorrect) {
+      setCorrectAnswers((prev) => prev + 1); 
+    }
     setTimeout(() => {
       if (questionIndex + 1 < questions.length) {
         setQuestionIndex(prevIndex => prevIndex + 1);
@@ -41,10 +48,12 @@ const App = () => {
            setActiveQuiz(item.title);
            setQuizCompleted(false); 
            setQuestionIndex(0);
+           setCorrectAnswers(0); 
          }}
-         className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4'
+         className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4 flex items-center gap-4'
          key={item.title}
        >
+            <img src={item.icon}  className="w-[40px] h-[40px]" />       
               {item.title}
             </button>
           ))}
@@ -52,9 +61,38 @@ const App = () => {
       </>
       )}
 
-      {activeQuiz && (
+{quizCompleted ? ( 
+      <div  className='flex  flex-wrap '>
+          <Text quizCompleted={quizCompleted}/>
+          
+        <div className=' mt-[300px] ml-[500px] max-[2000px]:mt-[50px] max-[1150px]:ml-[30px]  '>
+          <div className='flex flex-col items-center w-[600px] bg-white rounded-[30px] p-[20px] '>
+         <div className='flex'>
+          {activeQuizData?.icon && <img src={activeQuizData.icon} className="w-[50px] h-[50px] mt-[5px] mr-[10px]" />}
+          <h1 className='text-[45px]'>{activeQuiz}</h1>
+          </div> 
+            
+          <h1 className='text-[200px] '>{correctAnswers}</h1>
+          <h1 className='text-[30px]  text-gray-500 '> out of {questions.length}</h1>
+          </div>
+
+
+          <button
+          className='cursor-pointer w-[600px] h-[92px] mt-[20px] rounded-3xl bg-purple-500 text-white p-[32px]'
+          onClick={() => {
+          setQuizCompleted(false); 
+          setQuestionIndex(0);
+          setCorrectAnswers(0);
+          setCurrentAnswer(null);
+          setAnswerStatus(null);
+          }}>
+          Play Again
+          </button> 
+        </div>
+        </div>
+      ) : activeQuiz && (
        <div className='text-3xl flex flex-wrap  absolute'>
-       <Text activeQuiz={activeQuiz} questions={questions} questionIndex={questionIndex} quizCompleted={quizCompleted} />
+       <Text activeQuiz={activeQuiz} questions={questions} questionIndex={questionIndex}  />
        <div></div>
        <div className='flex flex-col ml-[500px] relative mt-[300px] justify-end w-[564px] gap-6 max-[2000px]:mt-[50px] max-[1150px]:ml-[50px]  '>
      
