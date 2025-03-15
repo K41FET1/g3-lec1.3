@@ -7,7 +7,7 @@ export default function Text({ activeQuiz, questions, questionIndex, quizComplet
   return (
     <div className="mt-[300px]">
       {quizCompleted ? ( 
-        <div className="mx-36 max-[1000px]:ml-[60px]">
+        <div className="mx-36 max-[1000px]:ml-[30px]  ">
           <p className="font-bold text-gray-500 text-[80px] max-[1000px]:text-[55px]">Quiz Completed</p>
           <p className="font-bold text-[80px] max-[1000px]:text-[55px] ">You scored...</p>
         </div>
