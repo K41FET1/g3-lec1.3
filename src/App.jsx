@@ -38,8 +38,10 @@ const App = () => {
   
   return (
     <div className='text-3xl flex flex-wrap'>
+
       {!activeQuiz && (
       <>
+       <Header activeQuiz={activeQuiz} />
        <Text/>
        <div className="flex flex-col relative  ml-auto mt-[300px] mr-[200px] justify-end w-[564px] gap-6 max-[1530px]:mt-[50px] ">
           {quiz.map((item) => (
@@ -52,6 +54,7 @@ const App = () => {
          }}
          className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4 flex items-center gap-4'
          key={item.title}
+         id='input'
        >
             <img src={item.icon}  className="w-[40px] h-[40px]" />       
               {item.title}
@@ -63,10 +66,11 @@ const App = () => {
 
 {quizCompleted ? ( 
       <div  className='flex  flex-wrap '>
+          <Header activeQuiz={activeQuiz} />            
           <Text quizCompleted={quizCompleted}/>
           
         <div className=' mt-[300px] ml-[500px] max-[2000px]:mt-[50px] max-[1150px]:ml-[30px]  '>
-          <div className='flex flex-col items-center w-[600px] bg-white rounded-[30px] p-[20px] '>
+          <div id='scoreDiv' className='flex flex-col items-center w-[600px] bg-white rounded-[30px] p-[20px] '>
          <div className='flex'>
           {activeQuizData?.icon && <img src={activeQuizData.icon} className="w-[50px] h-[50px] mt-[5px] mr-[10px]" />}
           <h1 className='text-[45px]'>{activeQuiz}</h1>
@@ -85,6 +89,7 @@ const App = () => {
           setCorrectAnswers(0);
           setCurrentAnswer(null);
           setAnswerStatus(null);
+          id='input'
           }}>
           Play Again
           </button> 
@@ -92,6 +97,7 @@ const App = () => {
         </div>
       ) : activeQuiz && (
        <div className='text-3xl flex flex-wrap  absolute'>
+        <Header activeQuiz={activeQuiz} />
        <Text activeQuiz={activeQuiz} questions={questions} questionIndex={questionIndex}  />
        <div></div>
        <div className='flex flex-col ml-[500px] relative mt-[300px] justify-end w-[564px] gap-6 max-[2000px]:mt-[50px] max-[1150px]:ml-[50px]  '>
@@ -105,6 +111,7 @@ const App = () => {
 
               return (
                 <button
+                  id='input'
                   key={opt}
                   onClick={() => {
                     setCurrentAnswer(opt); // Set the selected answer

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import DarkLight from './DarkLight';
 
-export default function Header({ activeQuiz }) {
+export default function Header() {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -49,16 +49,23 @@ export default function Header({ activeQuiz }) {
     } else {
       headerTitle.style.color = "#313E51";  
     }
+
+    const scoreDiv = document.querySelector("#scoreDiv");
+    if (!darkMode) {
+      scoreDiv.style.backgroundColor = "#3B4D66";
+    } else {
+      scoreDiv.style.backgroundColor = "#F4F6FA";
+    }
+
   };
 
   return (
     <div>
       <header className={`absolute w-full h-[10dvh] bg-transparent px-[150px] py-[100px] flex items-center justify-between 2xl:px-[120px] 2xl:py-[80px] xl:px-[100px] xl:py-[70px] lg:px-[80px] lg:py-[60px] md:px-[60px] md:py-[60px] sm:px-[60px] sm:py-[60px]`}> 
-        {!activeQuiz && (
           <div className="flex items-center gap-5">
             <div>
               <div className="w-15 h-15 bg-purple-200 rounded-lg flex items-center justify-center">
-                <img src="../assets/Accessibility.svg" alt="Accessibility Logo" />
+                <img src="../assets/icon-accessibility.svg" alt="Accessibility Logo" />
               </div>
             </div>
             <p 
@@ -69,7 +76,6 @@ export default function Header({ activeQuiz }) {
               Accessibility
             </p>
           </div>
-        )}
         
         <div className="flex items-center gap-5">
           <DarkLight darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
