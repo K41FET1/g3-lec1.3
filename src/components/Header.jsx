@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import DarkLight from './DarkLight';
 
-export default function Header({ showTest }) {
+export default function Header({ activeQuiz }) {
   const [darkMode, setDarkMode] = useState(false);
 
   const toggleDarkMode = () => {
@@ -54,28 +53,27 @@ export default function Header({ showTest }) {
 
   return (
     <div>
-      <header
-        className={`w-full h-[10dvh] bg-transparent px-[150px] py-[100px] flex items-center ${
-          showTest ? 'justify-between' : 'justify-end'
-        }`}
-      >
-        {showTest && (
+      <header className={`absolute w-full h-[10dvh] bg-transparent px-[150px] py-[100px] flex items-center justify-between 2xl:px-[120px] 2xl:py-[80px] xl:px-[100px] xl:py-[70px] lg:px-[80px] lg:py-[60px] md:px-[60px] md:py-[60px] sm:px-[60px] sm:py-[60px]`}> 
+        {!activeQuiz && (
           <div className="flex items-center gap-5">
-            <div className='absolute right-[1600px]'>
+            <div>
               <div className="w-15 h-15 bg-purple-200 rounded-lg flex items-center justify-center">
                 <img src="../assets/Accessibility.svg" alt="Accessibility Logo" />
               </div>
             </div>
             <p 
               id='headerTitle' 
-              className="text-xl font-bold absolute right-[1470px]"
+              className="text-xl font-bold"
               style={{ color: darkMode ? "white" : "#313E51" }}
             >
               Accessibility
             </p>
           </div>
         )}
-        <DarkLight darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        
+        <div className="flex items-center gap-5">
+          <DarkLight darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+        </div>
       </header>
     </div>
   );
