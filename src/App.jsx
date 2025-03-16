@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Header from './components/Header'
 import Text from './components/Text'
@@ -10,9 +10,11 @@ const App = () => {
   const [activeQuiz, setActiveQuiz] = useState(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState(null);
-  const [answerStatus, setAnswerStatus] = useState(null); // 'correct', 'wrong', or null
+  const [answerStatus, setAnswerStatus] = useState(null); 
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [newHeaderTitle, setNewHeaderTitle] = useState(null);
+  const [newHeaderIcon, setNewHeaderIcon] = useState(null);
   
   const activeQuizData = quiz.find((item) => item.title === activeQuiz);
 
@@ -33,33 +35,49 @@ const App = () => {
       }
       setAnswerStatus(null);
       setCurrentAnswer(null);
-    }, 2000);
+    }, 100);
   };
-  
+ 
+  const toggleHeaderTitle = (el) => {
+    setNewHeaderTitle(el);
+  };
+
+  const toggleHeaderIcon = (el) => {
+    setNewHeaderIcon(el);
+  };
+
+  useEffect(() => {
+    document.querySelector("#headerTitle").textContent = newHeaderTitle;
+    document.querySelector("#headerIcon").src = newHeaderIcon;
+  }, [newHeaderTitle]); 
+
+
   return (
     <div className='text-3xl flex flex-wrap'>
 
       {!activeQuiz && (
       <>
-       <Header activeQuiz={activeQuiz} />
+       <Header activeQuiz={activeQuiz} newHeaderTitle={newHeaderTitle} />
        <Text/>
        <div className="flex flex-col relative  ml-auto mt-[300px] mr-[200px] justify-end w-[564px] gap-6 max-[1530px]:mt-[50px] ">
           {quiz.map((item) => (
-         <button
-         onClick={() => {
-           setActiveQuiz(item.title);
-           setQuizCompleted(false); 
-           setQuestionIndex(0);
-           setCorrectAnswers(0); 
-         }}
-         className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4 flex items-center gap-4'
-         key={item.title}
-         id='input'
-       >
-            <img src={item.icon}  className="w-[40px] h-[40px]" />       
-              {item.title}
-            </button>
-          ))}
+          <button
+            onClick={() => {
+              setActiveQuiz(item.title);
+              setQuizCompleted(false); 
+              setQuestionIndex(0);
+              setCorrectAnswers(0); 
+              toggleHeaderTitle(item.title);
+              toggleHeaderIcon(item.icon);
+            }}
+            className='cursor-pointer bg-white w-[564px] h-[96px] rounded-3xl font-medium text-[#313E51] text-3xl text-left px-4 flex items-center gap-4'
+            key={item.title}
+            id='inputFirst'
+          >
+          <img src={item.icon}  className="w-[40px] h-[40px]" />       
+          {item.title}
+          </button>
+          ))} 
         </div>
       </>
       )}

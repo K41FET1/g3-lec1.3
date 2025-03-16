@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DarkLight from './DarkLight';
 
-export default function Header() {
+export default function Header() { // Accept headerTitleText as a prop
   const [darkMode, setDarkMode] = useState(false);
-
+  
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
 
@@ -43,11 +43,11 @@ export default function Header() {
       }
     });
 
-    const headerTitle = document.querySelector("#headerTitle");  
+    const headerTitle = document.querySelector("#headerTitle");
     if (!darkMode) {
       headerTitle.style.color = "white";
     } else {
-      headerTitle.style.color = "#313E51";  
+      headerTitle.style.color = "#313E51";
     }
 
     const scoreDiv = document.querySelector("#scoreDiv");
@@ -57,26 +57,27 @@ export default function Header() {
       scoreDiv.style.backgroundColor = "#F4F6FA";
     }
 
+
   };
 
-  return (
+ return (
     <div>
-      <header className={`absolute w-full h-[10dvh] bg-transparent px-[150px] py-[100px] flex items-center justify-between 2xl:px-[120px] 2xl:py-[80px] xl:px-[100px] xl:py-[70px] lg:px-[80px] lg:py-[60px] md:px-[60px] md:py-[60px] sm:px-[60px] sm:py-[60px]`}> 
-          <div className="flex items-center gap-5">
+      <header className={`absolute w-full h-[10dvh] bg-transparent px-[150px] py-[100px] flex items-center justify-between 2xl:px-[120px] 2xl:py-[80px] xl:px-[100px] xl:py-[70px] lg:px-[80px] lg:py-[60px] md:px-[60px] md:py-[60px] sm:px-[60px] sm:py-[60px]`}>
+        <div className="flex items-center gap-5">
+          <div>
             <div>
-              <div className="w-15 h-15 bg-purple-200 rounded-lg flex items-center justify-center">
-                <img src="../assets/icon-accessibility.svg" alt="Accessibility Logo" />
-              </div>
+              <img id='headerIcon' src="" alt="" />
             </div>
-            <p 
-              id='headerTitle' 
-              className="text-xl font-bold"
-              style={{ color: darkMode ? "white" : "#313E51" }}
-            >
-              Accessibility
-            </p>
           </div>
-        
+          <p
+            id='headerTitle'
+            className="text-xl font-bold"
+            style={{ color: darkMode ? "white" : "#313E51" }}
+          >
+            
+          </p>
+        </div>
+
         <div className="flex items-center gap-5">
           <DarkLight darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         </div>
